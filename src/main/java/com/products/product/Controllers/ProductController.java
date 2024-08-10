@@ -23,4 +23,12 @@ public class ProductController {
     public Product getProductbyId(@PathVariable Integer id){
         return productService.getProductById(id);
     }
+    @DeleteMapping("/{id}")
+    public String delProductbyId(@PathVariable Integer id){
+        return productService.deleteProductById(id);
+    }
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Integer id,@RequestBody Product p){
+        return productService.updateProduct(id,p);
+    }
 }

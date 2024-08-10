@@ -2,9 +2,11 @@ package com.products.product.Services;
 
 import com.products.product.Models.Product;
 import com.products.product.Repos.ProductRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,5 +29,16 @@ public class ProductService {
 
     public Product getProductById(Integer id) {
         return productRepo.findById(id).get();
+    }
+
+    public String deleteProductById(Integer id) {
+        productRepo.deleteById(id);
+        return "Item Deleted Successfully";
+    }
+
+    public Product updateProduct(Integer id,Product p) {
+        Product existingProduct = productRepo.findById(id).get();
+        BeanUtils.copyProperties(p, existingProduct, "id");
+        return productRepo.save(p);
     }
 }
