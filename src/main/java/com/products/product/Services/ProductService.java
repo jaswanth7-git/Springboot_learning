@@ -41,4 +41,8 @@ public class ProductService {
         BeanUtils.copyProperties(p, existingProduct, "id");
         return productRepo.save(p);
     }
+
+    public List<Product> searchProducts(String queryparam) {
+        return productRepo.getProductsByName(queryparam);
+    }
 }

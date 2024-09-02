@@ -23,4 +23,12 @@ public class UserService {
         }
 
     }
+
+    public void registerUser(User p) {
+        if(userRepo.existsById(p.getEmail())){
+            return ;
+        }
+        userRepo.save(p);
+        return;
+    }
 }
