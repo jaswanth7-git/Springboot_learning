@@ -2,6 +2,7 @@ package com.products.product.Services;
 
 import com.products.product.Models.User;
 import com.products.product.Repos.UserRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,11 @@ public class UserService {
         }
         userRepo.save(p);
         return;
+    }
+
+    public User update(User p) {
+        User existingUser = userRepo.findById(p.getEmail()).get();
+        BeanUtils.copyProperties(p,existingUser,p.getEmail());
+        return userRepo.save(existingUser);
     }
 }
