@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CartService {
 
@@ -24,6 +26,15 @@ public class CartService {
         User selected_user = userRepo.findById(useremail).get();
         Cart cart_final = new Cart(selected_user,selected_product,id);
         cartRepo.save(cart_final);
-        return "{\n    \"email\" : \""+useremail+"\",\n    \"status\" : \"success\"\n}";
+        return "{\n    \"email\" : \""+useremail+"\",\n    \"status\" : \"saved\"\n}";
+    }
+
+    public List<Product> getFromCart(String useremail) {
+        User selected_user = userRepo.findById(useremail).get();
+        List<Cart> cartItems = cartRepo.getCartProductsByUserId(selected_user.getEmail());
+        System.out.println(cartItems.stream().toList());
+        return cartItems.stream()
+                .map(Cart::getProduct).toList();
+
     }
 }

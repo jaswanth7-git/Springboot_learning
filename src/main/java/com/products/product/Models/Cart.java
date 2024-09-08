@@ -16,7 +16,7 @@ public class Cart {
         this.product = product;
         this.user = user;
     }
-
+   public Cart(){}
     public int getId() {
         return id;
     }
